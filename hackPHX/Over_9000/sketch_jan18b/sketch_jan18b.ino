@@ -1,6 +1,7 @@
 /*#########################################
  #                Team 4                  #
  #            "The GG-Killer"             #
+ #           #hackPhx, Jan '14            #
  ##########################################
  #  Created by:                           #
  #    Todd Harrison,  "Arduino-King"      #
@@ -33,7 +34,7 @@ int powerLevel;
 int count;
 
 // Ping variables
-int pingPin = 5;  // pin for ping sensor (should use A5 on xadow)
+int pingPin = A5;  // pin for ping sensor (should use A5 on xadow)
 int ledPin = 1;   // pin turn on LED (should use 1 on xadow)
 long duration;    // duration for ping return with evaluates to distance
 long inches;      // inches to object
@@ -176,6 +177,13 @@ void draw_powerMeter(int x) {
     SeeedOled.putString("]");
 }
 
+void clear_pingData() {
+  SeeedOled.setTextXY(6,10);
+  SeeedOled.putString("   ");
+  SeeedOled.setTextXY(6,13);
+  SeeedOled.putString("   ");
+}
+
 void print_pingData() {
     long fixedInches;
 
@@ -184,6 +192,9 @@ void print_pingData() {
     } else {
       fixedInches = inches;
     }
+
+    // Refresh the ping data display
+    clear_pingData();
 
     SeeedOled.setTextXY(6,0);
     SeeedOled.putString("Distance :");
